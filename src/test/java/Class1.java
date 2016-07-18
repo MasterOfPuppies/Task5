@@ -4,45 +4,20 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.*;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 import static org.testng.Assert.assertEquals;
 
 public class Class1 {
 
     private static final By INPUT_USERNAME_CSS = By.cssSelector("#Username");
-    private static final By INPUT_USERNAME_XPATH = By.xpath("//div[@id='Username']");
     private static final By INPUT_PASSWORD_CSS = By.cssSelector("#Password");
-    private static final By INPUT_PASSWORD_XPATH = By.xpath("//div[@id='Password']");
-    private static final By REMEMBERME_LABEL_CSS = By.cssSelector(".editor-chbox>span");
-    private static final By REMEMBERME_LABEL_XPATH = By.xpath("//div[@class='remember-chBox']/span");
-    private static final By REMEMBERME_INPUT_CSS = By.cssSelector(".remember-chBox>label>span");
-    private static final By REMEMBERME_INPUT_XPATH = By.xpath("//div[@class='remember-chBox']/label/span");
     private static final By LOGIN_CSS = By.cssSelector("#SubmitButton");
-    private static final By LOGIN_XPATH = By.xpath("//div[@id='SubmitButton']");
-    private static final By SIGNOUT_CSS = By.cssSelector(".sign-out-span>a>ins");
-    private static final By SIGNOUT_XPATH = By.xpath("//div[@class='menu-links']/span[@class='sign-out-span']/a/ins");
-    private static final By ALL_LINKS_OFFICES_CSS = By.cssSelector("a[href*='#Office-Chapaeva']");
-    private static final By ALL_LINKS_OFFICES_XPATH = By.xpath("//a[contains(text(),'Chapaeva')]");
-    private static final By CHAPAEVA118_LINK_OFFICE_CSS = By.cssSelector("a[href='#Office-Chapaeva 118']");
-    private static final By CHAPAEVA118_LINK_OFFICE_XPATH = By.cssSelector("//a[contains(@href,'#Office-Chapaeva 118')]");
-    private static final By LUNCHVOTING_CSS = By.cssSelector(".lunchvoting");
-    private static final By LUNCHVOTING_XPATH = By.xpath("//a[@href='https://lunchvoting.issoft.by/']");
-    private static final By VACATION_TAB = By.xpath("//a[@id='vacationMenu']");
-    private static final By TO_XPATH = By.xpath("//div[@id='thirdContainer']/span");
-    private static final By TO_CSS = By.cssSelector("#thirdContainer>span");
-    private static final By CC_XPATH = By.xpath("//div[@id='fourthContainer']/span");
-    private static final By CC_CSS = By.cssSelector("#fourthContainer>span");
-    private static final By COMPANY_TAB = By.cssSelector("#companyMenu");//li[contains(@class,'company-record')]
-    private static final By COMPANIES_CSS = By.cssSelector(".company-record");
-    private static final By COMPANIES_XPATH = By.xpath("//li[contains(@class,'company-record')]");
-    private static final By CONTACTS_CSS = By.cssSelector(".tab-link-contact");
-    private static final By CONTACTS_XPATH = By.xpath("//a[contains(@class,'tab-link-contact')]");
+    private static final By SIGNOUT_CSS = By.cssSelector(".sign-out-span>a");
     private static final By USERNAMEERROR = By.xpath("//span[@title='Username is required']");
     private static final By PASSWORDERROR = By.xpath("//span[@title='Password is required']");
     private WebDriver driver = null;
@@ -53,7 +28,7 @@ public class Class1 {
         List<String> info = new ArrayList();
         try {
             BufferedReader br = new BufferedReader(new FileReader(file.getAbsoluteFile()));
-            String str = null;
+            String str ;
             while((str = br.readLine()) != null) {
                 info.add(str);
 
@@ -131,6 +106,8 @@ public class Class1 {
             WebElement officeMenu = driver.findElement(By.xpath("//a[@id='officeMenu']"));
             officeMenu.click();
             explicitWaiterExtended.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@id='search-container']/input"))));
+
+            Assert.assertTrue(driver.findElement(SIGNOUT_CSS).isDisplayed());
 
             Thread.sleep(1000);
 
